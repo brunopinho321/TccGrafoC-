@@ -57,4 +57,19 @@ void Grafo::adicionarAresta(No v1, No v2){
 
 void Grafo::adicionarVertice(No no){
     listaDeVertices.push_back(no);
+    this->ordem = this->ordem + 1;
 }
+
+
+
+No Grafo::pegarVertice(int vertice){
+    No no(-1);
+    for(No n : this->listaDeVertices){
+        if(n.vertice == vertice)
+            return n;
+    }
+    return no;
+
+}
+
+

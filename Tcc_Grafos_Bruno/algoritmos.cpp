@@ -11,15 +11,7 @@ bool Algoritmos::estaNaLista(No no, vector<No> lista){
     return valor;
 }
 
-Grafo Algoritmos::procurarP4(Grafo grafo){
-    Grafo g;
-        for(No n : grafo.listaDeVertices){
-            if(n.vizinhos->size() >= 3 && estaNaLista(n, g.listaDeVertices)){
-                g.adicionarVertice(n);
-            }
-        }
-    return g;
-}
+
 
 void Algoritmos::permutacao(int *vetor, int len){
     permutacaoRecusiva(vetor, 0, len);
@@ -94,6 +86,88 @@ int Algoritmos::coloracaoGulosa(Grafo* grafo, int *ordem){
     }
     return k;
 }
+
+
+Grafo Algoritmos::encontrarEstrutura(Grafo grafo){
+    Grafo g;
+    vector<No> azuis;
+    vector<No> vermelhos;
+    vector<No> pretos;
+    int vetor[grafo.listaDeVertices.size()];
+    for(int i = 0; i < grafo.listaDeVertices.size(); i++ ){
+        vetor[i] = 0;
+    }
+    for(No n:grafo.listaDeVertices){
+        if(n.vizinhos->size() >= 3){
+             azuis.push_back(n);
+
+            for(int n1 : *n.vizinhos){
+                No no1 = grafo.pegarVertice(n1);
+
+                if(no1.vizinhos->size() == 4 && !estaNaLista(no1, azuis)){
+                   azuis.push_back(no1);
+
+                    for(int n2 : *no1.vizinhos){
+                        No no2 = grafo.pegarVertice(n2);
+
+                        if(no2.vizinhos->size() == 4 && !estaNaLista(no2, azuis)){
+                            azuis.push_back(no2);
+
+                            for(int n3 : *no2.vizinhos){
+                                No no3 = grafo.pegarVertice(n3);
+
+                                if(no3.vizinhos->size() >= 3 && !estaNaLista(no3, azuis) && !no3.ehVizinho(n.vertice)){
+                                    azuis.push_back(no3);
+                                    g.listaDeVertices = azuis;
+                                    g.ordem = azuis.size();
+                                    //return g;
+                                     cout<<g.toString()<<endl;
+
+                                    azuis.pop_back();
+
+                                }
+                            }
+                            azuis.pop_back();
+                        }
+                    }
+                    azuis.pop_back();
+                }
+            }
+            azuis.pop_back();
+        }
+    }
+
+    return NULL;
+}
+
+
+bool Algoritmos::vizinhosEmComum(No n1, No n2, Grafo grafo){
+    bool valor = false;
+    for(int i : *n1.vizinhos){
+        for(int j : *n2.vizinhos){
+            if(i == j && grafo.pegarVertice(j).vertice == -1){
+                valor = true;
+            }
+        }
+    }
+    return valor;
+}
+
+bool Algoritmos::vizinhoEmComumVermelho(Grafo grafo, vector<No> lista){
+    for(No n1 : grafo.listaDeVertices){
+        for(No n2 : grafo.listaDeVertices){
+            if(n1.vertice != n2.vertice){
+                if(vizinhosEmComum(n1, n2, grafo)){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+
 
 /*vector<No> Algoritmos::encontrarP4(Grafo grafo){
     vector<No>::iterator i;

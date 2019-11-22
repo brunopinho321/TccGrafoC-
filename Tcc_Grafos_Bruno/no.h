@@ -2,7 +2,7 @@
 #define NO_H
 
 #include <iostream>
-#include <list>
+//#include <list>
 #include <string>
 #include <algorithm>
 using namespace std;
@@ -20,6 +20,7 @@ public:
         void adicionarVizinho(int vertice);
         int getVizinho(int index);
         int getCor();
+        bool ehVizinho(int vertice);
 };
 
 #endif // NO_H

@@ -34,3 +34,14 @@ int No::getVizinho(int index){
     return v;
 
 }
+
+bool No::ehVizinho(int vertice){
+    bool valor = false;
+    for(int i : *this->vizinhos){
+       // cout<<i<<endl;
+        if(i == vertice){
+            valor = true;
+        }
+    }
+    return valor;
+}
