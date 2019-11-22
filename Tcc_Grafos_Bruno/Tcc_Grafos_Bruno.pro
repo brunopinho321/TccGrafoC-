@@ -7,9 +7,11 @@ SOURCES += \
         algoritmos.cpp \
         grafo.cpp \
         main.cpp \
-        no.cpp
+        no.cpp \
+        reader.cpp
 
 HEADERS += \
     algoritmos.h \
     grafo.h \
-    no.h
+    no.h \
+    reader.h

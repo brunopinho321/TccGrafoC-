@@ -6,6 +6,7 @@ class Grafo
 {
 public:
     int ordem;
+    int numeroDeArestas = 0;
     vector<No> listaDeVertices;
 
     Grafo(int ordem);
